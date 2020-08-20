@@ -1036,3 +1036,43 @@ class ALK(TalkerSentence,SeaTalk):
         ("Data Byte 8", "data_byte8"),
         ("Data Byte 9", "data_byte9")
     )
+
+# ---------------------------------------------------------------------------- #
+# AIS sentences - intended for checking valid AIS sentences
+# Attention - It does not parse the packet contents, only the sentence.
+# Thus, you can have a valid AIS sentence, that may or may not contain 
+# a valid AIS packet.
+# If you need to completely decode the AIS message, consider using an
+# AIS decoder like pyais or libais.
+#
+# ---------------------------------------------------------------------------- #
+
+# AIS Own Ship Message - intended for parsing the sentence layer, not the packet layer.
+# Used by AIS devices to report own ship information
+# https://gpsd.gitlab.io/gpsd/AIVDM.html#_aivdmaivdo_sentence_layer
+class VDO(TalkerSentence):
+    """ AIS Own Ship Message
+    """
+    fields = (
+        ("Total number of message fragments", "total_num_frgs"),
+        ("Fragment number", "frg_num"),
+        ("Sequential message id", "msg_id"), # optional
+        ("Radio channel code", "channel_code"),
+        ("Data packet payload", "data_payload"),
+        ("Number of fill bits for padding the data", "padding")
+    )
+	
+# AIS Other Ship Message - intended for parsing the sentence layer, not the packet layer.
+# Used by AIS devices to report other ship information
+# https://gpsd.gitlab.io/gpsd/AIVDM.html#_aivdmaivdo_sentence_layer
+class VDM(TalkerSentence):
+    """ AIS Other Ship Message
+    """
+    fields = (
+        ("Total number of message fragments", "total_num_frgs"),
+        ("Fragment number", "frg_num"),
+        ("Sequential message id", "msg_id"), # optional
+        ("Radio channel code", "channel_code"),
+        ("Data packet payload", "data_payload"),
+        ("Number of fill bits for padding the data", "padding")
+    )
